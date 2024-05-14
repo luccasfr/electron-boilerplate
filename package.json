@@ -1,8 +1,8 @@
 {
-  "name": "vite-electron",
-  "productName": "vite-electron",
+  "name": "electron-app-boilerplate",
+  "productName": "Electron App Boilerplate",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "A boilerplate for Electron apps with Vite, React, TailwindCSS, Electron Forge and many more.",
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start",
@@ -21,6 +21,8 @@
     "@electron-forge/plugin-fuses": "^7.4.0",
     "@electron-forge/plugin-vite": "^7.4.0",
     "@electron/fuses": "^1.8.0",
+    "@tanstack/router-devtools": "^1.32.5",
+    "@tanstack/router-vite-plugin": "^1.32.2",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",

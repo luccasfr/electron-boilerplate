@@ -22,9 +22,9 @@ function VersionInfoSeparator() {
 
 function VersionInfoItem({ name, version, img }: VersionInfoItemProps) {
   return (
-    <div className="flex justify-between flex-wrap border-slate-700">
-      <div className="flex items-center gap-1 lg:gap-3 ">
-        {img && <img src={img} alt="logo" className="w-4 h-4" />}
+    <div className="flex justify-between flex-wrap border-slate-700 text-sm">
+      <div className="flex items-center gap-2 ">
+        {img && <img src={img} alt="logo" className="w-5 h-5" />}
         <p className="">{name}</p>
       </div>
       <p className="font-mono">{version.replace(/[^A-Za-z\s:0-9.]+/, "")}</p>

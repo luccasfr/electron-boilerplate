@@ -2,19 +2,24 @@ import electronImage from "@/assets/electron.svg";
 import reactImage from "@/assets/react.svg";
 import tailwindcssImage from "@/assets/tailwindcss.svg";
 import typescriptImage from "@/assets/typescript.svg";
+import tanstackImage from "@/assets/tanstack.png";
 import viteImage from "@/assets/vite.svg";
+import shadcnuiImage from "@/assets/shadcnui.svg";
 import Header from "@/components/header";
-import { ModeToggle } from "@/components/mode-toggle";
 import VersionInfo from "@/components/version-info";
+import { createLazyFileRoute } from "@tanstack/react-router";
 import json from "../../package.json";
 
-function App() {
+export const Route = createLazyFileRoute("/")({
+  component: Index,
+});
+
+function Index() {
   return (
     <div
-      className="h-screen bg-background text-foreground flex flex-col gap-8 items-center 
-                justify-between py-4"
+      className="bg-background text-foreground flex flex-col gap-8 items-center 
+                justify-between pb-8"
     >
-      <ModeToggle className="fixed right-6 top-6" />
       <Header />
       <VersionInfo>
         <VersionInfo.Item
@@ -46,14 +51,19 @@ function App() {
           version={json.devDependencies.typescript}
           img={typescriptImage}
         />
+        <VersionInfo.Separator />
+        <VersionInfo.Item
+          name="Tanstack Router Vite Plugin"
+          version={json.devDependencies["@tanstack/router-vite-plugin"]}
+          img={tanstackImage}
+        />
+        <VersionInfo.Separator />
+        <VersionInfo.Item
+          name="shadcn/ui"
+          version={"latest"}
+          img={shadcnuiImage}
+        />
       </VersionInfo>
-      <div>
-        <p className="text-sm text-foreground/60">
-          made by <span className="text-foreground/100">Lucas Ferreira</span>
-        </p>
-      </div>
     </div>
   );
 }
-
-export default App;
