@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import { shell } from "electron";
 
@@ -14,6 +14,7 @@ const createWindow = () => {
     height: 600,
     minHeight: 600,
     minWidth: 800,
+    frame: false,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
@@ -63,3 +64,20 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+ipcMain.on("quit", () => {
+  app.quit();
+});
+
+ipcMain.on("minimize", () => {
+  BrowserWindow.getFocusedWindow()?.minimize();
+});
+
+ipcMain.on("maximize", () => {
+  const focusedWindow = BrowserWindow.getFocusedWindow();
+  if (focusedWindow?.isMaximized()) {
+    focusedWindow.unmaximize();
+  } else {
+    focusedWindow?.maximize();
+  }
+});

@@ -46,6 +46,7 @@
   "license": "MIT",
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-menubar": "^1.0.4",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
