@@ -33,4 +33,13 @@ To check **filename conventions**, follow this [link](https://tanstack.com/route
 
 ## Authors
 
-- [Lucas Ferreira](https://github.com/luccasfr)
+<table>
+  <tbody>
+    <td align="center">
+      <a href="https://github.com/luccasfr">
+        <img src="https://github.com/luccasfr.png?size=100" />
+        <p>Lucas Ferreira</p>
+      </a>
+    </td>
+  </tbody>
+</table>
