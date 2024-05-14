@@ -16,5 +16,10 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["types/**/*.d.ts", "src/**/*.ts", "src/**/*.tsx"]
+  "include": [
+    "types/**/*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "forge.env.d.ts"
+  ]
 }
