@@ -10,6 +10,20 @@
 - Full Typescript support
 - Tanstack file-based router
 
+## There are two options
+
+1. With the system title-bar which is the "default".
+   ![Default](./assets/default.png)
+
+2. With custom title-bar. (branch: `custom-title-bar`)
+   ![Custom](./assets/custom-title-bar.png)
+
+In case you want this second option, you can clone the branch with it:
+
+```bash
+git clone -b custom-title-bar https://github.com/luccasfr/electron-boilerplate
+```
+
 ## How to get started?
 
 1. Install dependencies
