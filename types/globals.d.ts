@@ -1,9 +1,12 @@
-declare module "*.svg" {
-  const content: any;
-  export default content;
+declare module "*.png" {
+  const value: string;
+  export default value;
 }
 
-declare module "*.png" {
-  const value: import("react-native").ImageSourcePropType;
-  export default value;
+declare module "*.svg" {
+  export const ReactComponent: React.FunctionComponent<
+    React.SVGProps<SVGSVGElement>
+  >;
+  const src: string;
+  export default src;
 }
