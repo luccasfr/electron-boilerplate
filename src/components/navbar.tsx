@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { ModeToggle } from "./mode-toggle";
 
 export default function Navbar() {
   return (
@@ -11,6 +12,7 @@ export default function Navbar() {
           About
         </Link>
       </div>
+      <ModeToggle />
     </div>
   );
 }
