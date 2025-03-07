@@ -1,12 +1,19 @@
-import { RouterProvider, createRouter } from "@tanstack/react-router";
+import {
+  RouterProvider,
+  createMemoryHistory,
+  createRouter,
+} from "@tanstack/react-router";
 
 // Import the generated route tree
 import { routeTree } from "../routeTree.gen";
 
-// Create a new router instance
-const router = createRouter({ routeTree });
+const memoryHistory = createMemoryHistory({
+  initialEntries: ["/"],
+});
 
-// Register the router instance for type safety
+// Create a new router instance
+const router = createRouter({ routeTree, history: memoryHistory });
+
 declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
