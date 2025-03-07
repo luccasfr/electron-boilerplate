@@ -7,10 +7,10 @@ import typescriptImage from "@/assets/typescript.svg";
 import viteImage from "@/assets/vite.svg";
 import Title from "@/components/title";
 import VersionInfo from "@/components/version-info";
-import { createLazyFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import json from "../../package.json";
 
-export const Route = createLazyFileRoute("/")({
+export const Route = createFileRoute("/")({
   component: Index,
 });
 
