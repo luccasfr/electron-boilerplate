@@ -1,6 +1,6 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, ipcMain, shell } from "electron";
+import type { IpcMainEvent } from "electron";
 import path from "path";
-import { shell } from "electron";
 import started from "electron-squirrel-startup";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -18,13 +18,33 @@ const createWindow = () => {
     frame: false,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      contextIsolation: true,
+      nodeIntegration: false,
+      sandbox: true,
+      webSecurity: true,
     },
   });
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
-    shell.openExternal(details.url); // Open URL in user's browser.
-    return { action: "deny" }; // Prevent the app from opening the URL.
+    try {
+      const url = new URL(details.url);
+      if (url.protocol === "https:" || url.protocol === "http:") {
+        void shell.openExternal(url.toString());
+      }
+    } catch {
+      // Ignore malformed URLs instead of passing them to the operating system.
+    }
+
+    return { action: "deny" };
   });
+
+  mainWindow.webContents.on("will-navigate", (event) => {
+    event.preventDefault();
+  });
+
+  mainWindow.webContents.session.setPermissionRequestHandler(
+    (_webContents, _permission, callback) => callback(false)
+  );
 
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
@@ -66,19 +86,27 @@ app.on("activate", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-ipcMain.on("quit", () => {
+const isTrustedIpcEvent = (event: IpcMainEvent) => {
+  const senderWindow = BrowserWindow.fromWebContents(event.sender);
+  return senderWindow !== null && event.senderFrame === event.sender.mainFrame;
+};
+
+ipcMain.on("quit", (event) => {
+  if (!isTrustedIpcEvent(event)) return;
   app.quit();
 });
 
-ipcMain.on("minimize", () => {
-  BrowserWindow.getFocusedWindow()?.minimize();
+ipcMain.on("minimize", (event) => {
+  if (!isTrustedIpcEvent(event)) return;
+  BrowserWindow.fromWebContents(event.sender)?.minimize();
 });
 
-ipcMain.on("maximize", () => {
-  const focusedWindow = BrowserWindow.getFocusedWindow();
-  if (focusedWindow?.isMaximized()) {
-    focusedWindow.unmaximize();
+ipcMain.on("maximize", (event) => {
+  if (!isTrustedIpcEvent(event)) return;
+  const senderWindow = BrowserWindow.fromWebContents(event.sender);
+  if (senderWindow?.isMaximized()) {
+    senderWindow.unmaximize();
   } else {
-    focusedWindow?.maximize();
+    senderWindow?.maximize();
   }
 });
